@@ -1,5 +1,7 @@
 using System.Collections;
 using UnityEngine;
+using UnityEngine.InputSystem;
+using UnityEngine.Windows;
 
 namespace Game.Tutorial
 {
@@ -9,6 +11,8 @@ namespace Game.Tutorial
         [SerializeField] private PlayerStats playerStats;
         private Vector2 moveInput;
 
+        [SerializeField] private PlayerInput playerInput;
+
         private bool isAttack = false;
         private bool isDie = false;
 
@@ -16,6 +20,8 @@ namespace Game.Tutorial
         //private int currentToolIndex = 0;
         protected override void Init()
         {
+            if(playerInput == null)
+                playerInput = GetComponent<PlayerInput>();
             SetDefautlState();
         }
 
@@ -28,9 +34,10 @@ namespace Game.Tutorial
         }
         private void CheckInput()
         {
-            moveInput = new Vector2(Input.GetAxisRaw("Horizontal"), Input.GetAxisRaw("Vertical"));
-
-            if (Input.GetKeyDown(KeyCode.Mouse0) && !isAttack)
+            var input = playerInput.actions["Move"].ReadValue<Vector2>();
+            moveInput = new Vector2(input.x, input.y);
+            //moveInput = new Vector2(Input.GetAxisRaw("Horizontal"), Input.GetAxisRaw("Vertical"));
+            if (UnityEngine.Input.GetKeyDown(KeyCode.Mouse0) && !isAttack)
                 ChangeState(State.Attack);
         }
         protected override void FSMFixedUpdate()
