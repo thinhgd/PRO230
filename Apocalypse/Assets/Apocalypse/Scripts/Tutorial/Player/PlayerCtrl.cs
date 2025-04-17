@@ -1,45 +1,54 @@
 using System.Collections;
 using UnityEngine;
+using UnityEngine.EventSystems;
 using UnityEngine.InputSystem;
-using UnityEngine.Windows;
 
 namespace Game.Tutorial
 {
+    [RequireComponent(typeof(PlayerInput))]
     public class PlayerCtrl : PlayerFinalStatMachine
     {
+        [Header("Movement Settings")]
         [SerializeField] private float speed = 10f;
+
+        [Header("References")]
         [SerializeField] private PlayerStats playerStats;
+
         private Vector2 moveInput;
+        private PlayerInput playerInput;
 
-        [SerializeField] private PlayerInput playerInput;
-
-        private bool isAttack = false;
         private bool isDie = false;
 
-        //private List<string> tools = new List<string> {Tag.ATTACK ,Tag.AXE, Tag.WATERING };
-        //private int currentToolIndex = 0;
         protected override void Init()
         {
-            if(playerInput == null)
-                playerInput = GetComponent<PlayerInput>();
+            playerInput = GetComponent<PlayerInput>();
+            RegisterInputCallbacks();
             SetDefautlState();
+        }
+
+        private void RegisterInputCallbacks()
+        {
+            var actions = playerInput.actions;
+
+            actions["Move"].performed += ctx => moveInput = ctx.ReadValue<Vector2>();
+            actions["Move"].canceled += ctx => moveInput = Vector2.zero;
+
+            actions["Attack"].performed += ctx =>
+            {
+                if (EventSystem.current != null && EventSystem.current.IsPointerOverGameObject())
+                    return;
+
+                if (!isDie && currentState != State.Attack)
+                    ChangeState(State.Attack);
+            };
         }
 
         protected override void FSMUpdate()
         {
             if (playerStats.CurrentHealth <= 0 && !isDie)
                 ChangeState(State.Die);
+        }
 
-            CheckInput();
-        }
-        private void CheckInput()
-        {
-            var input = playerInput.actions["Move"].ReadValue<Vector2>();
-            moveInput = new Vector2(input.x, input.y);
-            //moveInput = new Vector2(Input.GetAxisRaw("Horizontal"), Input.GetAxisRaw("Vertical"));
-            if (UnityEngine.Input.GetKeyDown(KeyCode.Mouse0) && !isAttack)
-                ChangeState(State.Attack);
-        }
         protected override void FSMFixedUpdate()
         {
             switch (currentState)
@@ -62,22 +71,24 @@ namespace Game.Tutorial
         private void IdleState()
         {
             if (isDie) return;
+
             PlayAnimation(Tag.IDLE);
 
-            if (Mathf.Abs(moveInput.x) > Mathf.Epsilon || Mathf.Abs(moveInput.y) > Mathf.Epsilon)
+            if (moveInput.sqrMagnitude > 0.01f)
                 ChangeState(State.Run);
         }
 
         private void RunState()
         {
             if (isDie) return;
+
             PlayAnimation(Tag.RUN);
             SetVelocity(moveInput.x, moveInput.y, speed);
 
-            if (Mathf.Abs(moveInput.x) <= Mathf.Epsilon && Mathf.Abs(moveInput.y) <= Mathf.Epsilon)
+            if (moveInput.sqrMagnitude < 0.01f)
                 ChangeState(State.Idle);
-
         }
+
         private void UseToolState()
         {
             if (isDie) return;
@@ -105,11 +116,13 @@ namespace Game.Tutorial
                 SetVelocity(moveInput.x, moveInput.y, speed);
             }
         }
+
         private void DieState()
         {
             if (!isDie)
                 StartCoroutine(ReSpawner());
         }
+
         IEnumerator ReSpawner()
         {
             isDie = true;
@@ -125,15 +138,16 @@ namespace Game.Tutorial
             isDie = false;
         }
 
-        //private void OnTriggerEnter2D(Collider2D collision)
-        //{
-        //    if (!photonView.IsMine) return;
-
-        //    if (!collision.CompareTag("Item")) return;
-
-        //    var item = collision.gameObject.GetComponent<Item>();
-        //    if (item && boxCollider2D)
-        //        HotBarManager.instance.AddItem(item.itemSO);
-        //}
+        private void OnDisable()
+        {
+            // Unregister events to avoid memory leaks
+            if (playerInput != null)
+            {
+                var actions = playerInput.actions;
+                actions["Move"].performed -= ctx => moveInput = ctx.ReadValue<Vector2>();
+                actions["Move"].canceled -= ctx => moveInput = Vector2.zero;
+                actions["Attack"].performed -= ctx => ChangeState(State.Attack);
+            }
+        }
     }
 }
