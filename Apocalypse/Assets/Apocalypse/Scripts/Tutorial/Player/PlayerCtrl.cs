@@ -1,4 +1,4 @@
-using System.Collections;
+﻿using System.Collections;
 using UnityEngine;
 using UnityEngine.EventSystems;
 using UnityEngine.InputSystem;
@@ -14,10 +14,16 @@ namespace Game.Tutorial
         [Header("References")]
         [SerializeField] private PlayerStats playerStats;
 
+        [Header("Roll")]
+        [SerializeField] private float rollDuration = 0.4f;
+        private float rollTimer;
+        private bool isRoll;
+
         private Vector2 moveInput;
         private PlayerInput playerInput;
 
         private bool isDie = false;
+        private bool isInWater = false;
 
         protected override void Init()
         {
@@ -38,8 +44,14 @@ namespace Game.Tutorial
                 if (EventSystem.current != null && EventSystem.current.IsPointerOverGameObject())
                     return;
 
-                if (!isDie && currentState != State.Attack)
+                if (!isDie && !isInWater && currentState != State.Attack)
                     ChangeState(State.Attack);
+            };
+
+            actions["Roll"].performed += ctx =>
+            {
+                if (!isDie && !isInWater && currentState != State.Roll && moveInput.sqrMagnitude > 0.01f)
+                    ChangeState(State.Roll);
             };
         }
 
@@ -61,6 +73,12 @@ namespace Game.Tutorial
                     break;
                 case State.Attack:
                     UseToolState();
+                    break;
+                case State.Roll:
+                    RollState();
+                    break;
+                case State.Swimming:
+                    SwimmingState();
                     break;
                 case State.Die:
                     DieState();
@@ -89,9 +107,37 @@ namespace Game.Tutorial
                 ChangeState(State.Idle);
         }
 
-        private void UseToolState()
+        private void RollState()
+        {
+            if (isDie || isInWater) return;
+
+            if (rollTimer <= 0f)
+            {
+                PlayAnimation(Tag.ROLL);
+                rollTimer = rollDuration;
+            }
+
+            SetVelocity(moveInput.normalized.x, moveInput.normalized.y, speed * 1.2f);
+            rollTimer -= Time.fixedDeltaTime;
+
+            if (rollTimer <= 0f)
+                ChangeState(State.Idle);
+        }
+
+        private void SwimmingState()
         {
             if (isDie) return;
+
+            PlayAnimation(Tag.SWIMMING);
+            SetVelocity(moveInput.x, moveInput.y, speed);
+
+            if (!isInWater)
+                ChangeState(moveInput.sqrMagnitude > 0.01f ? State.Run : State.Idle);
+        }
+
+        private void UseToolState()
+        {
+            if (isDie || isInWater) return;
 
             AnimatorStateInfo stateInfo = anim.GetCurrentAnimatorStateInfo(0);
 
@@ -138,9 +184,30 @@ namespace Game.Tutorial
             isDie = false;
         }
 
+        private void OnTriggerEnter2D(Collider2D collision)
+        {
+            if (collision.CompareTag(Tag.WATER))
+            {
+                isInWater = true;
+
+                if (!isDie && currentState != State.Swimming)
+                    ChangeState(State.Swimming);
+            }
+        }
+
+        private void OnTriggerExit2D(Collider2D collision)
+        {
+            if (collision.CompareTag(Tag.WATER))
+            {
+                isInWater = false;
+
+                if (!isDie && currentState == State.Swimming)
+                    ChangeState(moveInput.sqrMagnitude > 0.01f ? State.Run : State.Idle);
+            }
+        }
+
         private void OnDisable()
         {
-            // Unregister events to avoid memory leaks
             if (playerInput != null)
             {
                 var actions = playerInput.actions;
