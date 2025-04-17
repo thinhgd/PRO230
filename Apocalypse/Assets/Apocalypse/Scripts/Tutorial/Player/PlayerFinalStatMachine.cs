@@ -10,7 +10,7 @@ namespace Game.Tutorial
 
         public State currentState = State.None;
 
-        public enum State { None, Idle, Run, Attack, Die }
+        public enum State { None, Idle, Run, Attack, Roll, Swimming, Die }
 
         [SerializeField] private GameObject flipGui;
         protected virtual void Init() { }
