@@ -9,10 +9,24 @@ namespace Game.Tutorial
         public bool stackable;
         public Sprite image;
 
-
         [Space]
         public ItemType type;
         public ActionType action;
+
+        [Header("Stats")]
+        public float health;
+        [Header("Sat Thuong")]
+        public float stVatLy;
+        public float stPhep;
+        [Header("Giap")]
+        public float giapVatLy;
+        public float giapPhep;
+        [Header("Base")]
+        public float tocDoDanh;
+        public float tocDoDiChuyen;
+        [Header("Chi Mang")]
+        public float tiLeChiMang;
+        public float stChiMang;
     }
     public enum ItemType
     {
@@ -20,7 +34,7 @@ namespace Game.Tutorial
     }
     public enum ActionType
     {
-        None, Axe, Water, Attack, Dig, Plough, Seed, Basket
+        None, Axe, Attack, Mining
     }
 
 }

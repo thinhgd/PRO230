@@ -1,38 +1,66 @@
-using System.Collections;
+﻿using System.Collections;
 using UnityEngine;
+using UnityEngine.EventSystems;
+using UnityEngine.InputSystem;
 
 namespace Game.Tutorial
 {
+    [RequireComponent(typeof(PlayerInput))]
     public class PlayerCtrl : PlayerFinalStatMachine
     {
+        [Header("Movement Settings")]
         [SerializeField] private float speed = 10f;
+
+        [Header("References")]
         [SerializeField] private PlayerStats playerStats;
+
+        [Header("Roll")]
+        [SerializeField] private float rollDuration = 0.4f;
+        private float rollTimer;
+        private bool isRoll;
+
         private Vector2 moveInput;
+        private PlayerInput playerInput;
 
-        private bool isAttack = false;
         private bool isDie = false;
+        private bool isInWater = false;
 
-        //private List<string> tools = new List<string> {Tag.ATTACK ,Tag.AXE, Tag.WATERING };
-        //private int currentToolIndex = 0;
         protected override void Init()
         {
+            playerInput = GetComponent<PlayerInput>();
+            RegisterInputCallbacks();
             SetDefautlState();
+        }
+
+        private void RegisterInputCallbacks()
+        {
+            var actions = playerInput.actions;
+
+            actions["Move"].performed += ctx => moveInput = ctx.ReadValue<Vector2>();
+            actions["Move"].canceled += ctx => moveInput = Vector2.zero;
+
+            actions["Attack"].performed += ctx =>
+            {
+                if (EventSystem.current != null && EventSystem.current.IsPointerOverGameObject())
+                    return;
+
+                if (!isDie && !isInWater && currentState != State.Attack)
+                    ChangeState(State.Attack);
+            };
+
+            actions["Roll"].performed += ctx =>
+            {
+                if (!isDie && !isInWater && currentState != State.Roll && moveInput.sqrMagnitude > 0.01f)
+                    ChangeState(State.Roll);
+            };
         }
 
         protected override void FSMUpdate()
         {
             if (playerStats.CurrentHealth <= 0 && !isDie)
                 ChangeState(State.Die);
-
-            CheckInput();
         }
-        private void CheckInput()
-        {
-            moveInput = new Vector2(Input.GetAxisRaw("Horizontal"), Input.GetAxisRaw("Vertical"));
 
-            if (Input.GetKeyDown(KeyCode.Mouse0) && !isAttack)
-                ChangeState(State.Attack);
-        }
         protected override void FSMFixedUpdate()
         {
             switch (currentState)
@@ -46,6 +74,12 @@ namespace Game.Tutorial
                 case State.Attack:
                     UseToolState();
                     break;
+                case State.Roll:
+                    RollState();
+                    break;
+                case State.Swimming:
+                    SwimmingState();
+                    break;
                 case State.Die:
                     DieState();
                     break;
@@ -55,25 +89,55 @@ namespace Game.Tutorial
         private void IdleState()
         {
             if (isDie) return;
+
             PlayAnimation(Tag.IDLE);
 
-            if (Mathf.Abs(moveInput.x) > Mathf.Epsilon || Mathf.Abs(moveInput.y) > Mathf.Epsilon)
+            if (moveInput.sqrMagnitude > 0.01f)
                 ChangeState(State.Run);
         }
 
         private void RunState()
         {
             if (isDie) return;
+
             PlayAnimation(Tag.RUN);
             SetVelocity(moveInput.x, moveInput.y, speed);
 
-            if (Mathf.Abs(moveInput.x) <= Mathf.Epsilon && Mathf.Abs(moveInput.y) <= Mathf.Epsilon)
+            if (moveInput.sqrMagnitude < 0.01f)
                 ChangeState(State.Idle);
-
         }
-        private void UseToolState()
+
+        private void RollState()
+        {
+            if (isDie || isInWater) return;
+
+            if (rollTimer <= 0f)
+            {
+                PlayAnimation(Tag.ROLL);
+                rollTimer = rollDuration;
+            }
+
+            SetVelocity(moveInput.normalized.x, moveInput.normalized.y, speed * 1.2f);
+            rollTimer -= Time.fixedDeltaTime;
+
+            if (rollTimer <= 0f)
+                ChangeState(State.Idle);
+        }
+
+        private void SwimmingState()
         {
             if (isDie) return;
+
+            PlayAnimation(Tag.SWIMMING);
+            SetVelocity(moveInput.x, moveInput.y, speed);
+
+            if (!isInWater)
+                ChangeState(moveInput.sqrMagnitude > 0.01f ? State.Run : State.Idle);
+        }
+
+        private void UseToolState()
+        {
+            if (isDie || isInWater) return;
 
             AnimatorStateInfo stateInfo = anim.GetCurrentAnimatorStateInfo(0);
 
@@ -98,11 +162,13 @@ namespace Game.Tutorial
                 SetVelocity(moveInput.x, moveInput.y, speed);
             }
         }
+
         private void DieState()
         {
             if (!isDie)
                 StartCoroutine(ReSpawner());
         }
+
         IEnumerator ReSpawner()
         {
             isDie = true;
@@ -118,15 +184,37 @@ namespace Game.Tutorial
             isDie = false;
         }
 
-        //private void OnTriggerEnter2D(Collider2D collision)
-        //{
-        //    if (!photonView.IsMine) return;
+        private void OnTriggerEnter2D(Collider2D collision)
+        {
+            if (collision.CompareTag(Tag.WATER))
+            {
+                isInWater = true;
 
-        //    if (!collision.CompareTag("Item")) return;
+                if (!isDie && currentState != State.Swimming)
+                    ChangeState(State.Swimming);
+            }
+        }
 
-        //    var item = collision.gameObject.GetComponent<Item>();
-        //    if (item && boxCollider2D)
-        //        HotBarManager.instance.AddItem(item.itemSO);
-        //}
+        private void OnTriggerExit2D(Collider2D collision)
+        {
+            if (collision.CompareTag(Tag.WATER))
+            {
+                isInWater = false;
+
+                if (!isDie && currentState == State.Swimming)
+                    ChangeState(moveInput.sqrMagnitude > 0.01f ? State.Run : State.Idle);
+            }
+        }
+
+        private void OnDisable()
+        {
+            if (playerInput != null)
+            {
+                var actions = playerInput.actions;
+                actions["Move"].performed -= ctx => moveInput = ctx.ReadValue<Vector2>();
+                actions["Move"].canceled -= ctx => moveInput = Vector2.zero;
+                actions["Attack"].performed -= ctx => ChangeState(State.Attack);
+            }
+        }
     }
 }

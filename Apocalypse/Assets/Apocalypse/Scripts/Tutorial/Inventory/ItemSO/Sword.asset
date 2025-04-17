@@ -16,4 +16,13 @@ MonoBehaviour:
   stackable: 1
   image: {fileID: 21300000, guid: 57bf5dc9017ce434b8bf0ca77ee841c3, type: 3}
   type: 0
-  action: 3
+  action: 2
+  health: 0
+  stVatLy: 0
+  stPhep: 0
+  giapVatLy: 0
+  giapPhep: 0
+  tocDoDanh: 0
+  tocDoDiChuyen: 0
+  tiLeChiMang: 0
+  stChiMang: 0
