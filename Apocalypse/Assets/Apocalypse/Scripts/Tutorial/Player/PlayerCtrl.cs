@@ -11,8 +11,7 @@ namespace Game.Tutorial
         [Header("Movement Settings")]
         [SerializeField] private float speed = 10f;
 
-        [Header("References")]
-        [SerializeField] private PlayerStats playerStats;
+        public PlayerStats playerStats { get;private set;}
 
         [Header("Roll")]
         [SerializeField] private float rollDuration = 0.4f;
@@ -28,6 +27,7 @@ namespace Game.Tutorial
         protected override void Init()
         {
             playerInput = GetComponent<PlayerInput>();
+            playerStats = GetComponent<PlayerStats>();
             RegisterInputCallbacks();
             SetDefautlState();
         }
