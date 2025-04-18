@@ -16,13 +16,14 @@ namespace Game.Tutorial
         [Header("Roll")]
         [SerializeField] private float rollDuration = 0.4f;
         private float rollTimer;
-        private bool isRoll;
 
         private Vector2 moveInput;
         private PlayerInput playerInput;
 
         private bool isDie = false;
         private bool isInWater = false;
+
+        private ItemSO currentSelectedItem;
 
         protected override void Init()
         {
@@ -148,6 +149,11 @@ namespace Game.Tutorial
                 return;
             }
 
+            if (selectedItem != currentSelectedItem)
+            {
+                ApplyItemStats(selectedItem);
+            }
+
             string newTool = selectedItem.action.ToString();
 
             if (!stateInfo.IsName(newTool))
@@ -169,6 +175,28 @@ namespace Game.Tutorial
                 StartCoroutine(ReSpawner());
         }
 
+        private void ApplyItemStats(ItemSO newItem)
+        {
+            if (playerStats == null) return;
+
+            if (currentSelectedItem != null)
+            {
+                playerStats.AddStats(-currentSelectedItem.health, -currentSelectedItem.stVatLy, -currentSelectedItem.stPhep,
+                                     -currentSelectedItem.giapVatLy, -currentSelectedItem.giapPhep,
+                                     -currentSelectedItem.tocDoDanh, -currentSelectedItem.tocDoDiChuyen,
+                                     -currentSelectedItem.tiLeChiMang, -currentSelectedItem.stChiMang);
+            }
+
+            if (newItem != null)
+            {
+                playerStats.AddStats(newItem.health, newItem.stVatLy, newItem.stPhep,
+                                     newItem.giapVatLy, newItem.giapPhep,
+                                     newItem.tocDoDanh, newItem.tocDoDiChuyen,
+                                     newItem.tiLeChiMang, newItem.stChiMang);
+            }
+
+            currentSelectedItem = newItem;
+        }
         IEnumerator ReSpawner()
         {
             isDie = true;
