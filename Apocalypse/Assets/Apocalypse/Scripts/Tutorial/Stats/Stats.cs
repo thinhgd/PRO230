@@ -1,4 +1,5 @@
 using System.Collections;
+using UnityEditor.Experimental.GraphView;
 using UnityEngine;
 using UnityEngine.UI;
 
@@ -6,14 +7,29 @@ namespace Game.Tutorial
 {
     public class Stats : MonoBehaviour
     {
-        [SerializeField] protected float maxHealth;
-        [SerializeField] protected float currentHealth;
         [SerializeField] protected Image fill;
-
         //[SerializeField] private GameObject damageTextPrefab;
         //[SerializeField] private Transform damageTextSpawnPoint;
-        public float MaxHealth => maxHealth;
+
+        [Header("Stats")]
+        [SerializeField] protected float maxHealth;
+        [SerializeField] protected float currentHealth;
+        [Header("Sat Thuong")]
+        public float stVatLy;
+        public float stPhep;
+        public float hutHp;
+        [Header("Giap")]
+        public float giapVatLy;
+        public float giapPhep;
+        [Header("Base")]
+        public float tocDoDanh;
+        public float tocDoDiChuyen;
+        [Header("Chi Mang")]
+        public float tiLeChiMang;
+        public float stChiMang;
+
         public float CurrentHealth => currentHealth;
+        public float MaxHealth => maxHealth;
 
         protected virtual void Start()
         {
@@ -21,11 +37,28 @@ namespace Game.Tutorial
             UpdateHealthBar();
         }
 
-        public void TakeDamage(float damage)
+        public void TakeDamage(Stats attacker)
         {
             if (currentHealth <= 0) return;
-            currentHealth = Mathf.Max(0, currentHealth - damage);
+
+            // giap vl
+            float stVl = attacker.stVatLy * (100 / (100 + giapVatLy));
+
+            // giap Ap
+            float stAp = attacker.stPhep * (100 / (100 + giapPhep));
+
+            //Ti le chi mang
+            bool isCrit = Random.value < attacker.tiLeChiMang;
+            float critDamage = isCrit ? attacker.stChiMang : 0;
+
+            float totalDamage = stVl + stAp + critDamage;
+            
+            currentHealth = Mathf.Max(0, currentHealth - totalDamage);
             UpdateHealthBar();
+            
+            //Hut HP
+            float hutHP = totalDamage * this.hutHp;
+            attacker.AddHealth(hutHP);       
         }
 
         public void AddHealth(float health)

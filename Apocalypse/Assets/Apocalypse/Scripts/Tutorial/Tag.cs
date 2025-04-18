@@ -24,4 +24,5 @@ public static class Tag
     public const string ENEMY = "Enemy";
     public const string ITEM = "item";
     public const string WATER = "Water";
+    public const string TREE = "Tree";
 }
