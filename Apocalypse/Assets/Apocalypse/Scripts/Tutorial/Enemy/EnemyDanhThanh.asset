@@ -20,7 +20,9 @@ MonoBehaviour:
   magicResist: 10
   attackSpeed: 0.7
   moveSpeed: 100
-  lifestealPercent: 5
+  lifestealPercent: 0.2
   antiHealPercent: 0.5
   critChance: 0.2
   critMultiplier: 1
+  reflectDamagePercent: 0
+  dodgeChance: 0

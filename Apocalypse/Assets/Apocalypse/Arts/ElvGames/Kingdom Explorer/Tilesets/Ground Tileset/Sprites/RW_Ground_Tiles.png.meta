@@ -3,7 +3,7 @@ guid: b4f762ea5c9ac4f408cdd0369dc0750e
 TextureImporter:
   internalIDToNameTable: []
   externalObjects: {}
-  serializedVersion: 12
+  serializedVersion: 11
   mipmaps:
     mipMapMode: 0
     enableMipMap: 0
@@ -20,12 +20,11 @@ TextureImporter:
     externalNormalMap: 0
     heightScale: 0.25
     normalMapFilter: 0
-    flipGreenChannel: 0
   isReadable: 0
   streamingMipmaps: 0
   streamingMipmapsPriority: 0
   vTOnly: 0
-  ignoreMipmapLimit: 0
+  ignoreMasterTextureLimit: 0
   grayScaleToAlpha: 0
   generateCubemap: 6
   cubemapConvolution: 0
@@ -64,8 +63,6 @@ TextureImporter:
   textureFormatSet: 0
   ignorePngGamma: 0
   applyGammaDecoding: 0
-  swizzle: 50462976
-  cookieLightType: 1
   platformSettings:
   - serializedVersion: 3
     buildTarget: DefaultTexturePlatform
@@ -77,7 +74,6 @@ TextureImporter:
     crunchedCompression: 0
     allowsAlphaSplitting: 0
     overridden: 0
-    ignorePlatformSupport: 0
     androidETC2FallbackOverride: 0
     forceMaximumCompressionQuality_BC6H_BC7: 0
   - serializedVersion: 3
@@ -90,7 +86,6 @@ TextureImporter:
     crunchedCompression: 0
     allowsAlphaSplitting: 0
     overridden: 0
-    ignorePlatformSupport: 0
     androidETC2FallbackOverride: 0
     forceMaximumCompressionQuality_BC6H_BC7: 0
   - serializedVersion: 3
@@ -103,7 +98,6 @@ TextureImporter:
     crunchedCompression: 0
     allowsAlphaSplitting: 0
     overridden: 0
-    ignorePlatformSupport: 0
     androidETC2FallbackOverride: 0
     forceMaximumCompressionQuality_BC6H_BC7: 0
   - serializedVersion: 3
@@ -116,20 +110,6 @@ TextureImporter:
     crunchedCompression: 0
     allowsAlphaSplitting: 0
     overridden: 0
-    ignorePlatformSupport: 0
-    androidETC2FallbackOverride: 0
-    forceMaximumCompressionQuality_BC6H_BC7: 0
-  - serializedVersion: 3
-    buildTarget: Android
-    maxTextureSize: 2048
-    resizeAlgorithm: 0
-    textureFormat: -1
-    textureCompression: 0
-    compressionQuality: 50
-    crunchedCompression: 0
-    allowsAlphaSplitting: 0
-    overridden: 0
-    ignorePlatformSupport: 0
     androidETC2FallbackOverride: 0
     forceMaximumCompressionQuality_BC6H_BC7: 0
   spriteSheet:
@@ -1784,86 +1764,87 @@ TextureImporter:
     weights: []
     secondaryTextures: []
     nameFileIdTable:
-      RW_Ground_Tiles_0: 420978594
-      RW_Ground_Tiles_1: 784017325
-      RW_Ground_Tiles_10: 1074360422
-      RW_Ground_Tiles_11: -1960724284
-      RW_Ground_Tiles_12: -1877520254
+      RW_Ground_Tiles_58: 179380168
       RW_Ground_Tiles_13: 1092735902
-      RW_Ground_Tiles_14: 708780230
-      RW_Ground_Tiles_15: 1799215599
-      RW_Ground_Tiles_16: 868045592
-      RW_Ground_Tiles_17: 1198857911
-      RW_Ground_Tiles_18: -793269903
-      RW_Ground_Tiles_19: 1228866862
-      RW_Ground_Tiles_2: 543164617
-      RW_Ground_Tiles_20: 858180532
-      RW_Ground_Tiles_21: -713679009
-      RW_Ground_Tiles_22: -2141495015
-      RW_Ground_Tiles_23: -1477031901
-      RW_Ground_Tiles_24: -1551811910
-      RW_Ground_Tiles_25: -619380630
-      RW_Ground_Tiles_26: 2142929252
-      RW_Ground_Tiles_27: 1683220389
-      RW_Ground_Tiles_28: -413715039
-      RW_Ground_Tiles_29: 387636431
-      RW_Ground_Tiles_3: -664011581
-      RW_Ground_Tiles_30: 785541941
-      RW_Ground_Tiles_31: 544285551
-      RW_Ground_Tiles_32: -253488573
-      RW_Ground_Tiles_33: -1183945767
-      RW_Ground_Tiles_34: -674377821
-      RW_Ground_Tiles_35: 1446206404
-      RW_Ground_Tiles_36: 61250453
-      RW_Ground_Tiles_37: 1631340631
       RW_Ground_Tiles_38: -282113650
-      RW_Ground_Tiles_39: -197033406
-      RW_Ground_Tiles_4: -1753126056
-      RW_Ground_Tiles_40: -1860964584
-      RW_Ground_Tiles_41: 1226947986
-      RW_Ground_Tiles_42: -135945620
-      RW_Ground_Tiles_43: -776257391
-      RW_Ground_Tiles_44: -403463976
-      RW_Ground_Tiles_45: 2085779172
-      RW_Ground_Tiles_46: 572067952
-      RW_Ground_Tiles_47: -723646791
-      RW_Ground_Tiles_48: -1523234173
-      RW_Ground_Tiles_49: -1324392801
-      RW_Ground_Tiles_5: -1931110006
-      RW_Ground_Tiles_50: -1671009437
-      RW_Ground_Tiles_51: 1267389395
+      RW_Ground_Tiles_35: 1446206404
+      RW_Ground_Tiles_76: -1984306136
+      RW_Ground_Tiles_55: -1236107169
+      RW_Ground_Tiles_22: -2141495015
       RW_Ground_Tiles_52: -1798661253
+      RW_Ground_Tiles_74: -1452270390
       RW_Ground_Tiles_53: 1661705276
       RW_Ground_Tiles_54: 1764003102
-      RW_Ground_Tiles_55: -1236107169
-      RW_Ground_Tiles_56: -794052812
-      RW_Ground_Tiles_57: 975085445
-      RW_Ground_Tiles_58: 179380168
-      RW_Ground_Tiles_59: -1794403552
-      RW_Ground_Tiles_6: 1130907681
-      RW_Ground_Tiles_60: 1501422297
-      RW_Ground_Tiles_61: 259212107
-      RW_Ground_Tiles_62: 725407302
-      RW_Ground_Tiles_63: 515339509
-      RW_Ground_Tiles_64: 1063830840
-      RW_Ground_Tiles_65: -703933002
-      RW_Ground_Tiles_66: 478780764
-      RW_Ground_Tiles_67: 1551293427
-      RW_Ground_Tiles_68: 2112724698
-      RW_Ground_Tiles_69: -694371375
-      RW_Ground_Tiles_7: -1755198026
-      RW_Ground_Tiles_70: 919525257
-      RW_Ground_Tiles_71: -1827474489
-      RW_Ground_Tiles_72: 536672767
-      RW_Ground_Tiles_73: 302252363
-      RW_Ground_Tiles_74: -1452270390
-      RW_Ground_Tiles_75: 9869057
-      RW_Ground_Tiles_76: -1984306136
-      RW_Ground_Tiles_77: -2052172000
-      RW_Ground_Tiles_8: -764382513
+      RW_Ground_Tiles_10: 1074360422
+      RW_Ground_Tiles_32: -253488573
+      RW_Ground_Tiles_3: -664011581
+      RW_Ground_Tiles_36: 61250453
       RW_Ground_Tiles_9: 759656785
-  mipmapLimitGroupName: 
+      RW_Ground_Tiles_14: 708780230
+      RW_Ground_Tiles_25: -619380630
+      RW_Ground_Tiles_50: -1671009437
+      RW_Ground_Tiles_68: 2112724698
+      RW_Ground_Tiles_39: -197033406
+      RW_Ground_Tiles_15: 1799215599
+      RW_Ground_Tiles_34: -674377821
+      RW_Ground_Tiles_7: -1755198026
+      RW_Ground_Tiles_40: -1860964584
+      RW_Ground_Tiles_45: 2085779172
+      RW_Ground_Tiles_5: -1931110006
+      RW_Ground_Tiles_28: -413715039
+      RW_Ground_Tiles_46: 572067952
+      RW_Ground_Tiles_31: 544285551
+      RW_Ground_Tiles_56: -794052812
+      RW_Ground_Tiles_8: -764382513
+      RW_Ground_Tiles_16: 868045592
+      RW_Ground_Tiles_64: 1063830840
+      RW_Ground_Tiles_19: 1228866862
+      RW_Ground_Tiles_67: 1551293427
+      RW_Ground_Tiles_2: 543164617
+      RW_Ground_Tiles_60: 1501422297
+      RW_Ground_Tiles_23: -1477031901
+      RW_Ground_Tiles_4: -1753126056
+      RW_Ground_Tiles_33: -1183945767
+      RW_Ground_Tiles_72: 536672767
+      RW_Ground_Tiles_49: -1324392801
+      RW_Ground_Tiles_62: 725407302
+      RW_Ground_Tiles_30: 785541941
+      RW_Ground_Tiles_73: 302252363
+      RW_Ground_Tiles_75: 9869057
+      RW_Ground_Tiles_69: -694371375
+      RW_Ground_Tiles_24: -1551811910
+      RW_Ground_Tiles_26: 2142929252
+      RW_Ground_Tiles_59: -1794403552
+      RW_Ground_Tiles_43: -776257391
+      RW_Ground_Tiles_12: -1877520254
+      RW_Ground_Tiles_20: 858180532
+      RW_Ground_Tiles_51: 1267389395
+      RW_Ground_Tiles_42: -135945620
+      RW_Ground_Tiles_71: -1827474489
+      RW_Ground_Tiles_77: -2052172000
+      RW_Ground_Tiles_65: -703933002
+      RW_Ground_Tiles_44: -403463976
+      RW_Ground_Tiles_17: 1198857911
+      RW_Ground_Tiles_18: -793269903
+      RW_Ground_Tiles_47: -723646791
+      RW_Ground_Tiles_6: 1130907681
+      RW_Ground_Tiles_1: 784017325
+      RW_Ground_Tiles_27: 1683220389
+      RW_Ground_Tiles_57: 975085445
+      RW_Ground_Tiles_61: 259212107
+      RW_Ground_Tiles_70: 919525257
+      RW_Ground_Tiles_11: -1960724284
+      RW_Ground_Tiles_21: -713679009
+      RW_Ground_Tiles_48: -1523234173
+      RW_Ground_Tiles_0: 420978594
+      RW_Ground_Tiles_41: 1226947986
+      RW_Ground_Tiles_29: 387636431
+      RW_Ground_Tiles_63: 515339509
+      RW_Ground_Tiles_66: 478780764
+      RW_Ground_Tiles_37: 1631340631
+  spritePackingTag: 
   pSDRemoveMatte: 0
+  pSDShowRemoveMatteOption: 0
   userData: 
   assetBundleName: 
   assetBundleVariant: 
