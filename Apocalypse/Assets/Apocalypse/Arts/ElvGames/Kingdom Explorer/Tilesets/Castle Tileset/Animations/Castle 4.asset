@@ -1,0 +1,28 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 13b75c95f34a00d4e8c04f76b73312e6, type: 3}
+  m_Name: Castle 4
+  m_EditorClassIdentifier: 
+  m_AnimatedSprites:
+  - {fileID: -965441370, guid: 804135f7752abce4e9873f6e1732c040, type: 3}
+  - {fileID: -82192030, guid: 804135f7752abce4e9873f6e1732c040, type: 3}
+  - {fileID: 1113578050, guid: 804135f7752abce4e9873f6e1732c040, type: 3}
+  - {fileID: -911621845, guid: 804135f7752abce4e9873f6e1732c040, type: 3}
+  - {fileID: -223527677, guid: 804135f7752abce4e9873f6e1732c040, type: 3}
+  - {fileID: 698891902, guid: 804135f7752abce4e9873f6e1732c040, type: 3}
+  - {fileID: 70368020, guid: 804135f7752abce4e9873f6e1732c040, type: 3}
+  - {fileID: 386327032, guid: 804135f7752abce4e9873f6e1732c040, type: 3}
+  m_MinSpeed: 6
+  m_MaxSpeed: 6
+  m_AnimationStartTime: 0
+  m_AnimationStartFrame: 0
+  m_TileColliderType: 0
