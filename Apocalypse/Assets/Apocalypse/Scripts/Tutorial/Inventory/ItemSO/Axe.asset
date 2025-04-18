@@ -17,3 +17,12 @@ MonoBehaviour:
   image: {fileID: 21300000, guid: 7565143914bb54345856f122f4ea1e69, type: 3}
   type: 1
   action: 1
+  health: 0
+  stVatLy: 10
+  stPhep: 0
+  giapVatLy: 20
+  giapPhep: 30
+  tocDoDanh: 0
+  tocDoDiChuyen: 0
+  tiLeChiMang: 0
+  stChiMang: 0
