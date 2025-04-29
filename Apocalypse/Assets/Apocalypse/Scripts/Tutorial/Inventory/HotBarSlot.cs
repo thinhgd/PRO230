@@ -46,7 +46,7 @@ namespace Game.Tutorial
         }
         private int GetSlotIndex()
         {
-            for (int i = 0; i < HotBarManager.instance.hotBarSlots.Length; i++)
+            for (int i = 0; i < 8; i++)
             {
                 if (HotBarManager.instance.hotBarSlots[i] == this)
                     return i;

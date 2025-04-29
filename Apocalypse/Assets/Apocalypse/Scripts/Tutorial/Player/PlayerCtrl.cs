@@ -2,6 +2,7 @@
 using UnityEngine;
 using UnityEngine.EventSystems;
 using UnityEngine.InputSystem;
+using static UnityEditor.Progress;
 
 namespace Game.Tutorial
 {
@@ -35,6 +36,8 @@ namespace Game.Tutorial
 
         private void RegisterInputCallbacks()
         {
+            if (EventSystem.current != null && EventSystem.current.IsPointerOverGameObject())
+                return;
             var actions = playerInput.actions;
 
             actions["Move"].performed += ctx => moveInput = ctx.ReadValue<Vector2>();
@@ -222,6 +225,14 @@ namespace Game.Tutorial
                 if (!isDie && currentState != State.Swimming)
                     ChangeState(State.Swimming);
             }
+
+            var item = collision.gameObject.GetComponent<Item>();
+            if (collision.CompareTag(Tag.ITEM))
+            {
+                HotBarManager.instance.AddItem(item.itemSO);
+                Destroy(collision.gameObject);
+
+            }
         }
 
         private void OnTriggerExit2D(Collider2D collision)
@@ -233,6 +244,7 @@ namespace Game.Tutorial
                 if (!isDie && currentState == State.Swimming)
                     ChangeState(moveInput.sqrMagnitude > 0.01f ? State.Run : State.Idle);
             }
+
         }
 
         private void OnDisable()
