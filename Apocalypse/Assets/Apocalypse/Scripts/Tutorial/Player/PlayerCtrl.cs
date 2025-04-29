@@ -11,7 +11,7 @@ namespace Game.Tutorial
         [Header("Movement Settings")]
         [SerializeField] private float speed = 10f;
 
-        public PlayerStats playerStats { get;private set;}
+        public PlayerStats playerStats { get; private set; }
 
         [Header("Roll")]
         [SerializeField] private float rollDuration = 0.4f;
@@ -40,20 +40,20 @@ namespace Game.Tutorial
             actions["Move"].performed += ctx => moveInput = ctx.ReadValue<Vector2>();
             actions["Move"].canceled += ctx => moveInput = Vector2.zero;
 
-            actions["Attack"].performed += ctx =>
-            {
-                if (EventSystem.current != null && EventSystem.current.IsPointerOverGameObject())
-                    return;
-
-                if (!isDie && !isInWater && currentState != State.Attack)
-                    ChangeState(State.Attack);
-            };
-
             actions["Roll"].performed += ctx =>
             {
                 if (!isDie && !isInWater && currentState != State.Roll && moveInput.sqrMagnitude > 0.01f)
                     ChangeState(State.Roll);
             };
+        }
+
+        protected virtual void OnAttack()
+        {
+            if (EventSystem.current != null && EventSystem.current.IsPointerOverGameObject())
+                return;
+
+            if (!isDie && !isInWater && currentState != State.Attack)
+                ChangeState(State.Attack);
         }
 
         protected override void FSMUpdate()
@@ -86,7 +86,7 @@ namespace Game.Tutorial
                     break;
             }
         }
-
+        #region State
         private void IdleState()
         {
             if (isDie) return;
@@ -149,6 +149,7 @@ namespace Game.Tutorial
                 return;
             }
 
+            // tang stats
             if (selectedItem != currentSelectedItem)
             {
                 ApplyItemStats(selectedItem);
@@ -174,7 +175,7 @@ namespace Game.Tutorial
             if (!isDie)
                 StartCoroutine(ReSpawner());
         }
-
+        #endregion
         private void ApplyItemStats(ItemSO newItem)
         {
             if (playerStats == null) return;
