@@ -124,8 +124,8 @@ public partial class @PlayerCtrl: IInputActionCollection2, IDisposable
                 },
                 {
                     ""name"": """",
-                    ""id"": ""2aec100c-0a2e-4f6f-8055-a12c94ed0821"",
-                    ""path"": ""<Touchscreen>/Press"",
+                    ""id"": ""8436c288-6210-4a80-843e-a16bdd9fc82b"",
+                    ""path"": ""<Gamepad>/buttonNorth"",
                     ""interactions"": """",
                     ""processors"": """",
                     ""groups"": """",
@@ -135,7 +135,7 @@ public partial class @PlayerCtrl: IInputActionCollection2, IDisposable
                 },
                 {
                     ""name"": """",
-                    ""id"": ""7ee8f478-3f1b-4b3b-8416-56f1765d1442"",
+                    ""id"": ""33746ef6-1c6f-427c-ac8d-5b9a827c8eea"",
                     ""path"": ""<Mouse>/leftButton"",
                     ""interactions"": """",
                     ""processors"": """",

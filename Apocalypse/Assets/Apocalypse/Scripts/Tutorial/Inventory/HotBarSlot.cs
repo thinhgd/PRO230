@@ -4,7 +4,7 @@ using UnityEngine.UI;
 
 namespace Game.Tutorial
 {
-    public class HotBarSlot : MonoBehaviour, IDropHandler
+    public class HotBarSlot : MonoBehaviour, IDropHandler, IPointerClickHandler
     {
         public Image image;
         public Color selectedColor, notselectedColor;
@@ -37,6 +37,21 @@ namespace Game.Tutorial
                 else
                     SwapItems(targetItem, draggedItem);
             }
+        }
+        public void OnPointerClick(PointerEventData eventData)
+        {
+            int index = GetSlotIndex();
+            if (index >= 0)
+                HotBarManager.instance.ChangeSelectedSlotInMobile(index);
+        }
+        private int GetSlotIndex()
+        {
+            for (int i = 0; i < HotBarManager.instance.hotBarSlots.Length; i++)
+            {
+                if (HotBarManager.instance.hotBarSlots[i] == this)
+                    return i;
+            }
+            return -1;
         }
 
         private void SetNewParent(HotBarItem item)
