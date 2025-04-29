@@ -22,7 +22,7 @@ public static class Tag
     // Trigger
     public const string PLAYER = "Player";
     public const string ENEMY = "Enemy";
-    public const string ITEM = "item";
+    public const string ITEM = "Item";
     public const string WATER = "Water";
     public const string TREE = "Tree";
 }
