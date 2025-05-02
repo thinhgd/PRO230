@@ -244,7 +244,7 @@ TextureImporter:
         width: 24
         height: 23
       alignment: 0
-      pivot: {x: 0, y: 0}
+      pivot: {x: 0.5, y: 0.5}
       border: {x: 0, y: 0, z: 0, w: 0}
       outline: []
       physicsShape: []
@@ -265,7 +265,7 @@ TextureImporter:
         width: 19
         height: 14
       alignment: 0
-      pivot: {x: 0, y: 0}
+      pivot: {x: 0.5, y: 0.5}
       border: {x: 0, y: 0, z: 0, w: 0}
       outline: []
       physicsShape: []
@@ -286,7 +286,7 @@ TextureImporter:
         width: 10
         height: 11
       alignment: 0
-      pivot: {x: 0, y: 0}
+      pivot: {x: 0.5, y: 0.5}
       border: {x: 0, y: 0, z: 0, w: 0}
       outline: []
       physicsShape: []
@@ -307,7 +307,7 @@ TextureImporter:
         width: 10
         height: 11
       alignment: 0
-      pivot: {x: 0, y: 0}
+      pivot: {x: 0.5, y: 0.5}
       border: {x: 0, y: 0, z: 0, w: 0}
       outline: []
       physicsShape: []
@@ -328,7 +328,7 @@ TextureImporter:
         width: 24
         height: 23
       alignment: 0
-      pivot: {x: 0, y: 0}
+      pivot: {x: 0.5, y: 0.5}
       border: {x: 0, y: 0, z: 0, w: 0}
       outline: []
       physicsShape: []
@@ -336,6 +336,27 @@ TextureImporter:
       bones: []
       spriteID: 16f58cdd3b6903146b18dca3ac07d1f0
       internalID: 2146420474
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: spr_tileset_sunnysideworld_16px_1_11
+      rect:
+        serializedVersion: 2
+        x: 787
+        y: 851
+        width: 10
+        height: 10
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: e77a8485690773d45a55aa846de97ae5
+      internalID: -498039609
       vertices: []
       indices: 
       edges: []
@@ -354,6 +375,7 @@ TextureImporter:
       spr_tileset_sunnysideworld_16px_1_0: 1685109894
       spr_tileset_sunnysideworld_16px_1_1: 576841978
       spr_tileset_sunnysideworld_16px_1_10: 2146420474
+      spr_tileset_sunnysideworld_16px_1_11: -498039609
       spr_tileset_sunnysideworld_16px_1_2: 1739211425
       spr_tileset_sunnysideworld_16px_1_3: -531120221
       spr_tileset_sunnysideworld_16px_1_4: -1086995771
