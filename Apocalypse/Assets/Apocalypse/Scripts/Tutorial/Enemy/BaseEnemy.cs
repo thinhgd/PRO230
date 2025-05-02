@@ -26,7 +26,7 @@ namespace Game.Tutorials
 
             if (stats == null)
             {
-                Debug.LogError("Thiếu EnemyStats trên " + gameObject.name);
+                //Debug.LogError("Thiếu EnemyStats trên " + gameObject.name);
                 return;
             }
 
