@@ -8,7 +8,7 @@ public class TreeSpawner : MonoBehaviour
 
     [Header("Spawn Settings")]
     public int maxTreeCount = 20;
-    private List<Tree> spawnedTrees = new List<Tree>();
+    private List<TreeItem> spawnedTrees = new List<TreeItem>();
 
     [SerializeField] private GameObject treePrefab;
 
@@ -16,6 +16,7 @@ public class TreeSpawner : MonoBehaviour
     [SerializeField] private PolygonCollider2D spawnZone;
     public Color gizmoColor = Color.yellow;
 
+    private Transform treeContainer;
     void Awake()
     {
         Instance = this;
@@ -27,16 +28,16 @@ public class TreeSpawner : MonoBehaviour
         {
             return;
         }
-
+        treeContainer = new GameObject("TreeContainer").transform;
         SpawnTrees();
     }
 
-    public void RespawnTree(Tree tree)
+    public void RespawnTree(TreeItem tree)
     {
         StartCoroutine(RespawnTreeCoroutine(tree));
     }
 
-    private IEnumerator RespawnTreeCoroutine(Tree tree)
+    private IEnumerator RespawnTreeCoroutine(TreeItem tree)
     {
         yield return new WaitForSeconds(30f);
 
@@ -45,6 +46,7 @@ public class TreeSpawner : MonoBehaviour
             Vector2 randomPos = GetRandomPointInPolygon();
 
             tree.transform.position = randomPos;
+            tree.transform.SetParent(treeContainer);
             tree.gameObject.SetActive(true);
             tree.currentHealth = tree.maxHealth;
 
@@ -56,21 +58,21 @@ public class TreeSpawner : MonoBehaviour
     {
         for (int i = 0; i < maxTreeCount; i++)
         {
-            Tree tree = InstantiateTree();
+            TreeItem tree = InstantiateTree();
             spawnedTrees.Add(tree);
         }
     }
 
-    private Tree InstantiateTree()
+    private TreeItem InstantiateTree()
     {
         Vector2 randomPos = GetRandomPointInPolygon();
 
-        GameObject treeObject = Instantiate(treePrefab, randomPos, Quaternion.identity);
-        Tree tree = treeObject.GetComponent<Tree>();
+        GameObject treeObject = Instantiate(treePrefab, randomPos, Quaternion.identity, treeContainer);
+        TreeItem tree = treeObject.GetComponent<TreeItem>();
         return tree;
     }
 
-    public void RemoveTree(Tree tree)
+    public void RemoveTree(TreeItem tree)
     {
         spawnedTrees.Remove(tree);
     }

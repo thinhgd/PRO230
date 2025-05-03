@@ -15,7 +15,7 @@ public class StoneSpawner : MonoBehaviour
     [Header("Spawn Area")]
     [SerializeField] private PolygonCollider2D spawnZone;
     public Color gizmoColor = Color.yellow;
-
+    private Transform stoneContainer;
     void Awake()
     {
         Instance = this;
@@ -27,7 +27,7 @@ public class StoneSpawner : MonoBehaviour
         {
             return;
         }
-
+        stoneContainer = new GameObject("StoneContainer").transform;
         SpawnTrees();
     }
 
@@ -45,6 +45,7 @@ public class StoneSpawner : MonoBehaviour
             Vector2 randomPos = GetRandomPointInPolygon();
 
             stone.transform.position = randomPos;
+            stone.transform.SetParent(stoneContainer);
             stone.gameObject.SetActive(true);
             stone.currentHealth = stone.maxHealth;
 
@@ -65,7 +66,7 @@ public class StoneSpawner : MonoBehaviour
     {
         Vector2 randomPos = GetRandomPointInPolygon();
 
-        GameObject stoneObject = Instantiate(treePrefab, randomPos, Quaternion.identity);
+        GameObject stoneObject = Instantiate(treePrefab, randomPos, Quaternion.identity, stoneContainer);
         Stone stone = stoneObject.GetComponent<Stone>();
         return stone;
     }

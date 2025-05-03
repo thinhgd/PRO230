@@ -50,11 +50,11 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 3933555905324977533, guid: 6f23b233e547c064c82fe1f12ff97918, type: 3}
       propertyPath: chopInterval
-      value: 2
+      value: 1.5
       objectReference: {fileID: 0}
     - target: {fileID: 3933555905324977533, guid: 6f23b233e547c064c82fe1f12ff97918, type: 3}
       propertyPath: woodCapacity
-      value: 50
+      value: 10
       objectReference: {fileID: 0}
     - target: {fileID: 8975241026119426777, guid: 6f23b233e547c064c82fe1f12ff97918, type: 3}
       propertyPath: m_Name

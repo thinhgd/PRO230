@@ -226,6 +226,10 @@ PrefabInstance:
       value: 7
       objectReference: {fileID: 0}
     - target: {fileID: 5098483908558542088, guid: 79c7550f5c4067044b733281201d04c6, type: 3}
+      propertyPath: m_PointLightInnerAngle
+      value: 360
+      objectReference: {fileID: 0}
+    - target: {fileID: 5098483908558542088, guid: 79c7550f5c4067044b733281201d04c6, type: 3}
       propertyPath: m_PointLightOuterRadius
       value: 7.86
       objectReference: {fileID: 0}

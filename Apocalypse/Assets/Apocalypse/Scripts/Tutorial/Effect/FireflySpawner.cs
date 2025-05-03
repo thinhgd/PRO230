@@ -15,6 +15,7 @@ public class FireflySpawner : MonoBehaviour
     public Color gizmoColor = Color.cyan;
 
     private List<GameObject> spawnedFireflies = new List<GameObject>();
+    private Transform fireflyContainer;
 
     void Awake()
     {
@@ -27,7 +28,8 @@ public class FireflySpawner : MonoBehaviour
         {
             return;
         }
-
+        fireflyContainer = new GameObject("FireflyContainer").transform;
+        fireflyContainer.SetParent(transform);
         SpawnFireflies();
     }
 
@@ -37,6 +39,7 @@ public class FireflySpawner : MonoBehaviour
         {
             Vector2 pos = GetRandomPointInPolygon();
             GameObject firefly = Instantiate(fireflyPrefab, pos, Quaternion.identity);
+            firefly.transform.SetParent(fireflyContainer);
             spawnedFireflies.Add(firefly);
         }
     }

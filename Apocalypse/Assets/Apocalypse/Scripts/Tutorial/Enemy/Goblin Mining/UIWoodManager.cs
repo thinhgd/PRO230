@@ -11,20 +11,20 @@ public class UIWoodManager : MonoBehaviour
 
     void Awake()
     {
-        Tree.totalWood = 0;
+        TreeItem.totalWood = 0;
         Stone.totalStore = 0;
         summonButton.interactable = false;
     }
 
     void OnEnable()
     {
-        Tree.OnTreeChopped += UpdateWoodUI;
+        TreeItem.OnTreeChopped += UpdateWoodUI;
         Stone.OnStoreChopped += UpdateWoodUI;
     }
 
     void OnDisable()
     {
-        Tree.OnTreeChopped -= UpdateWoodUI;
+        TreeItem.OnTreeChopped -= UpdateWoodUI;
         Stone.OnStoreChopped -= UpdateWoodUI;
     }
 
@@ -36,16 +36,16 @@ public class UIWoodManager : MonoBehaviour
             woodText.text = "Gỗ: " + castle.wood;
             goldText.text = "Gold: " + castle.stone;
         }
-        summonButton.interactable = Tree.totalWood >= woodRequiredToSummon;
+        summonButton.interactable = TreeItem.totalWood >= woodRequiredToSummon;
     }
 
     public void OnClickSummonWorker()
     {
-        if (Tree.totalWood >= woodRequiredToSummon)
+        if (TreeItem.totalWood >= woodRequiredToSummon)
         {
-            Tree.totalWood -= woodRequiredToSummon;
+            TreeItem.totalWood -= woodRequiredToSummon;
             summonButton.interactable = false;
-            woodText.text = "Gỗ: " + Tree.totalWood;
+            woodText.text = "Gỗ: " + TreeItem.totalWood;
             FindObjectOfType<WorkerSpawner>().SpawnWorker();
         }
     }

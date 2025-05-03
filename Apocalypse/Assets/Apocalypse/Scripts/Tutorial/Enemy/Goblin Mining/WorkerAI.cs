@@ -19,7 +19,7 @@ public class WorkerAI : BaseEnemy
     private int carriedWood = 0;
     private bool isDepositingWood = false;
 
-    private Tree targetTree;
+    private TreeItem targetTree;
     private AIPath aiPath;
     private float chopTimer = 2f;
 
@@ -28,7 +28,7 @@ public class WorkerAI : BaseEnemy
     private float stuckTimer = 0f;
     private float stuckCheckDelay = 1f;
 
-    private TreeGroupManager groupManager;
+    private TreeGroupManager groupManagerTree;
     
     [Header("Wood Gain Panel")]
     public GameObject woodGainPanelPrefab;
@@ -112,7 +112,7 @@ public class WorkerAI : BaseEnemy
 
                 if (stuckTimer >= stuckCheckDelay)
                 {
-                    Tree oldTarget = targetTree;
+                    TreeItem oldTarget = targetTree;
                     FindNearestTree(exclude: oldTarget);
 
                     if (targetTree != null && targetTree != oldTarget)
@@ -157,7 +157,7 @@ public class WorkerAI : BaseEnemy
                 castle.AddResource(ResourceType.Wood, carriedWood);
             }
 
-            Tree.totalWood += carriedWood;
+            TreeItem.totalWood += carriedWood;
             carriedWood = 0;
             isDepositingWood = false;
 
@@ -185,16 +185,16 @@ public class WorkerAI : BaseEnemy
         FindNearestTree();
     }
 
-    public void FindNearestTree(Tree exclude = null)
+    public void FindNearestTree(TreeItem exclude = null)
     {
         Collider2D[] hits = Physics2D.OverlapCircleAll(transform.position, searchRadius, treeLayer);
 
         float closestDist = Mathf.Infinity;
-        Tree closestTree = null;
+        TreeItem closestTree = null;
 
         foreach (var hit in hits)
         {
-            Tree tree = hit.GetComponent<Tree>();
+            TreeItem tree = hit.GetComponent<TreeItem>();
             if (tree != null && tree.currentHealth > 0 && tree != exclude)
             {
                 float dist = Vector3.Distance(transform.position, tree.transform.position);
@@ -212,21 +212,21 @@ public class WorkerAI : BaseEnemy
         }
     }
 
-    private void SetTargetWithOffset(Tree tree)
+    private void SetTargetWithOffset(TreeItem tree)
     {
-        if (groupManager != null)
+        if (groupManagerTree != null)
         {
-            groupManager.UnregisterWorker(this);
-            groupManager = null;
+            groupManagerTree.UnregisterWorker(this);
+            groupManagerTree = null;
         }
 
         targetTree = tree;
 
-        groupManager = tree.GetComponent<TreeGroupManager>();
-        if (groupManager == null)
-            groupManager = tree.gameObject.AddComponent<TreeGroupManager>();
+        groupManagerTree = tree.GetComponent<TreeGroupManager>();
+        if (groupManagerTree == null)
+            groupManagerTree = tree.gameObject.AddComponent<TreeGroupManager>();
 
-        groupManager.RegisterWorker(this);
+        groupManagerTree.RegisterWorker(this);
 
         SetOffsetPosition(tree.transform.position + (Vector3)(Random.insideUnitCircle * 0.5f));
     }
