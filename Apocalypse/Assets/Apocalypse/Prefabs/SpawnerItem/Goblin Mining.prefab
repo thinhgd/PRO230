@@ -121,12 +121,12 @@ MonoBehaviour:
   stats: {fileID: 11400000, guid: 97704e9d6941eaa479ea6fd311419487, type: 2}
   currentState: 0
   chopRange: 1
-  chopInterval: 2
+  chopInterval: 1.5
   searchRadius: 30
   stoneLayer:
     serializedVersion: 2
     m_Bits: 128
   woodText: {fileID: 3765778419701039392}
-  woodCapacity: 100
+  woodCapacity: 10
   mineGainPanelPrefab: {fileID: 8480911136499348121, guid: 06c54b99166cb144c8bf30cb6991fef3, type: 3}
   minePanelSpawnParent: {fileID: 2871093517961788596}

@@ -9,7 +9,7 @@ public class Unit : MonoBehaviour
     public UnitType unitType;
     public Action onDeath;
 
-    private int hp = 100;
+    //private int hp = 100;
 
     void Update()
     {

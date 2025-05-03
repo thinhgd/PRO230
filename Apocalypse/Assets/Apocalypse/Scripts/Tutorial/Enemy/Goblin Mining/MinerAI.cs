@@ -28,7 +28,7 @@ public class MineAI : BaseEnemy
     private float stuckTimer = 0f;
     private float stuckCheckDelay = 1f;
 
-    private TreeGroupManager groupManager;
+    private TreeGroupManager groupManagerMine;
 
     [Header("Mine Gain Panel")]
     public GameObject mineGainPanelPrefab;
@@ -213,19 +213,19 @@ public class MineAI : BaseEnemy
 
     private void SetTargetWithOffset(Stone stone)
     {
-        if (groupManager != null)
+        if (groupManagerMine != null)
         {
-            groupManager.UnregisterMiner(this);
-            groupManager = null;
+            groupManagerMine.UnregisterMiner(this);
+            groupManagerMine = null;
         }
 
         targetStone = stone;
 
-        groupManager = stone.GetComponent<TreeGroupManager>();
-        if (groupManager == null)
-            groupManager = stone.gameObject.AddComponent<TreeGroupManager>();
+        groupManagerMine = stone.GetComponent<TreeGroupManager>();
+        if (groupManagerMine == null)
+            groupManagerMine = stone.gameObject.AddComponent<TreeGroupManager>();
 
-        groupManager.RegisterMiner(this);
+        groupManagerMine.RegisterMiner(this);
 
         SetOffsetPosition(stone.transform.position + (Vector3)(Random.insideUnitCircle * 0.5f));
     }
