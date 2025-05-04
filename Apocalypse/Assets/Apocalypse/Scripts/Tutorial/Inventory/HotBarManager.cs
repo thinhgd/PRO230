@@ -81,6 +81,9 @@ namespace Game.Tutorial
 
         public void ChangeSelectedSlotInMobile(int newValue)
         {
+            if(newValue > 8)
+                return;
+
             ChangeSelectedSlotInPC(newValue);
         }
         public ItemSO GetSelectedItem()
