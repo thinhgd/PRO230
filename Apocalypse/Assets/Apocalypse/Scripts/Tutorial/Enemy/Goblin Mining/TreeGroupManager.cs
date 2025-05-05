@@ -5,6 +5,7 @@ public class TreeGroupManager : MonoBehaviour
 {
     private List<WorkerAI> workers = new List<WorkerAI>();
     private List<MineAI> miners = new List<MineAI>();
+    private List<MeaterAI> meaters = new List<MeaterAI>();
 
     public void RegisterWorker(WorkerAI worker)
     {
@@ -20,8 +21,17 @@ public class TreeGroupManager : MonoBehaviour
         if (!miners.Contains(mineAI))
         {
             miners.Add(mineAI);
-            Vector3 offset = GetOffsetPosition(workers.Count - 1);
+            Vector3 offset = GetOffsetPositionMine(miners.Count - 1);
             mineAI.SetOffsetPosition(transform.position + offset);
+        }
+    }
+    public void RegisterMeater(MeaterAI meaterAI)
+    {
+        if (!meaters.Contains(meaterAI))
+        {
+            meaters.Add(meaterAI);
+            Vector3 offset = GetOffsetPositionMeater(meaters.Count - 1);
+            meaterAI.SetOffsetPosition(transform.position + offset);
         }
     }
 
@@ -39,6 +49,13 @@ public class TreeGroupManager : MonoBehaviour
             miners.Remove(mineAI);
         }
     }
+    public void UnregisterMeater(MeaterAI meaterAI)
+    {
+        if (meaters.Contains(meaterAI))
+        {
+            meaters.Remove(meaterAI);
+        }
+    }
 
     private Vector3 GetOffsetPosition(int index)
     {
@@ -50,6 +67,12 @@ public class TreeGroupManager : MonoBehaviour
     {
         float radius = 1f;
         float angle = index * Mathf.PI * 2f / Mathf.Max(1, miners.Count);
+        return new Vector3(Mathf.Cos(angle), Mathf.Sin(angle), 0f) * radius;
+    }
+    private Vector3 GetOffsetPositionMeater(int index)
+    {
+        float radius = 1f;
+        float angle = index * Mathf.PI * 2f / Mathf.Max(1, meaters.Count);
         return new Vector3(Mathf.Cos(angle), Mathf.Sin(angle), 0f) * radius;
     }
 }
