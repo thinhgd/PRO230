@@ -1,8 +1,8 @@
 using System;
 using UnityEngine;
 
-public enum UnitType { Farmer, Miner }
-public enum ResourceType { Wood, Stone }
+public enum UnitType { Farmer, Miner, Meater }
+public enum ResourceType { Wood, Stone, Meat }
 
 public class Unit : MonoBehaviour
 {

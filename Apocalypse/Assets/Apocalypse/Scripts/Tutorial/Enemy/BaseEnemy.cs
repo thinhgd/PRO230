@@ -140,7 +140,7 @@ namespace Game.Tutorials
             Destroy(gameObject, 1f);
         }
 
-        public void SetState(EnemyState newState)
+        public virtual void SetState(EnemyState newState)
         {
             if (currentState == EnemyState.Die || currentState == newState) return;
             currentState = newState;
