@@ -148,7 +148,7 @@ public class CastleManager : MonoBehaviour
             cp.StartConstruction(position);
 
             farms.Add(construction);
-            ReScanPathfinder();
+            //ReScanPathfinder();
 
             Debug.Log("Started building Farm");
         }
@@ -163,7 +163,7 @@ public class CastleManager : MonoBehaviour
         {
             GameObject storage = Instantiate(storagePrefab, pos.Value, Quaternion.identity, buildingParent);
             storages.Add(storage);
-            ReScanPathfinder();
+            //ReScanPathfinder();
             Debug.Log("Built Storage");
         }
     }

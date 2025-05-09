@@ -22,10 +22,12 @@ namespace Game.Tutorials
             if(hit.collider != null)
             {
                 Debug.Log("Find enemy");
+                //Xử lý logic trong đây
             }
             else if(hit.collider == null)
             {
                 Debug.Log("You're safe now!!");
+                //Xử lý logic trong đây
             }
         }
     }
